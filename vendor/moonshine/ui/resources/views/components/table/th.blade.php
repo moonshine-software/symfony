@@ -1,3 +1,0 @@
-<th {{ $attributes }}>
-    {!! $slot ?? '' !!}
-</th>
