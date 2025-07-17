@@ -1,0 +1,41 @@
+<?php
+
+declare(strict_types=1);
+
+namespace MoonShine\UI\Components\Layout;
+
+use MoonShine\Support\Enums\FlashType;
+use MoonShine\UI\Components\MoonShineComponent;
+
+/**
+ * @method static static make(string $key = 'alert', string|FlashType $type = FlashType::INFO, bool $withToast = true, bool $removable = true)
+ */
+class Flash extends MoonShineComponent
+{
+    protected string $view = 'moonshine::components.layout.flash';
+
+    public function __construct(
+        protected string $key = 'alert',
+        protected string|FlashType $type = FlashType::INFO,
+        protected bool $withToast = true,
+        protected bool $removable = true,
+    ) {
+        parent::__construct();
+
+        $this->type = $this->type instanceof FlashType ? $this->type->value : $this->type;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    protected function viewData(): array
+    {
+        return [
+            'alert' => $this->getCore()->getRequest()->getSession($this->key),
+            'toast' => $this->withToast ? $this->getCore()->getRequest()->getSession('toast') : false,
+            'type' => $this->type,
+            'withToast' => $this->withToast,
+            'removable' => $this->removable,
+        ];
+    }
+}

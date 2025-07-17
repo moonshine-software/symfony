@@ -1,0 +1,12 @@
+/* Theme switcher */
+.theme-switcher {
+  @apply inline-flex items-center;
+
+  &-btn {
+    @apply h-6 w-6 overflow-hidden text-slate-500 hover:text-secondary dark:text-dark-50 dark:hover:text-white;
+
+    > svg {
+      @apply h-6 w-6;
+    }
+  }
+}

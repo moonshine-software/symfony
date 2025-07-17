@@ -1,0 +1,3 @@
+.zoom-in {
+  @apply transition-transform hover:scale-[1.0325];
+}

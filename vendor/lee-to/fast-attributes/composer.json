@@ -1,0 +1,42 @@
+{
+    "name": "lee-to/fast-attributes",
+    "description": "Simplifying PHP Attribute Management",
+    "keywords": ["php", "attributes"],
+    "type": "library",
+    "homepage": "https://cutcode.dev",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/lee-to/fast-attributes/issues",
+        "source": "https://github.com/lee-to/fast-attributes"
+    },
+    "authors": [
+        {
+            "name": "Danil Shutsky",
+            "email": "thecutcode@gmail.com",
+            "homepage": "https://cutocode.dev"
+        }
+    ],
+    "require": {
+        "php": "^8.0|^8.1|^8.2|^8.3|^8.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^12.0",
+        "rector/rector": "^2.0",
+        "phpstan/phpstan": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Leeto\\FastAttributes\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Leeto\\FastAttributes\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "analyze": "vendor/bin/phpstan analyze src --level=9",
+        "rector": "vendor/bin/rector process src --dry-run"
+    }
+}

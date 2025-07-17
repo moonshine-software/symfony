@@ -1,0 +1,59 @@
+<?php
+
+declare(strict_types=1);
+
+namespace MoonShine\UI\Components;
+
+use Closure;
+use MoonShine\Contracts\Core\TypeCasts\DataWrapperContract;
+use MoonShine\Contracts\UI\FieldContract;
+use Throwable;
+
+final class FieldsGroup extends AbstractWithComponents
+{
+    protected string $view = 'moonshine::components.fields-group';
+
+    /**
+     * @throws Throwable
+     */
+    public function previewMode(): self
+    {
+        return $this->mapFields(
+            static fn (FieldContract $field): FieldContract => $field->previewMode()
+        );
+    }
+
+    /**
+     * @param array<string, mixed> $raw
+     * @throws Throwable
+     */
+    public function fill(array $raw = [], ?DataWrapperContract $casted = null, int $index = 0): self
+    {
+        return $this->mapFields(
+            static fn (FieldContract $field): FieldContract => $field->fillData(\is_null($casted) ? $raw : $casted, $index)
+        );
+    }
+
+    /**
+     * @throws Throwable
+     */
+    public function withoutWrappers(): self
+    {
+        return $this->mapFields(
+            static fn (FieldContract $field): FieldContract => $field->withoutWrapper()
+        );
+    }
+
+    /**
+     * @param  Closure(FieldContract $field, int $index): FieldContract  $callback
+     * @throws Throwable
+     */
+    public function mapFields(Closure $callback): self
+    {
+        $this->getComponents()
+            ->onlyFields()
+            ->map(static fn (FieldContract $field, int $index): FieldContract => $callback($field, $index));
+
+        return $this;
+    }
+}

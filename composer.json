@@ -1,0 +1,54 @@
+{
+    "name": "moonshine/symfony",
+    "description": "MoonShine Symfony",
+    "keywords": [
+        "symfony",
+        "moonshine"
+    ],
+    "type": "symfony-bundle",
+    "homepage": "https://moonshine-laravel.com",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/moonshine-software/moonshine/symfony/issues",
+        "source": "https://github.com/moonshine-software/moonshine/symfony"
+    },
+    "authors": [
+        {
+            "name": "Danil Shutsky",
+            "email": "info@cutcode.ru",
+            "homepage": "https://cutcode.dev"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "ext-json": "*",
+        "illuminate/filesystem": "^10|^11|^12",
+        "lee-to/fast-attributes": "^0.3",
+        "symfony/psr-http-message-bridge": "^7.1",
+        "nyholm/psr7": "^1.8",
+        "moonshine/asset-manager": "4.x-dev",
+        "moonshine/color-manager": "4.x-dev",
+        "moonshine/menu-manager": "4.x-dev",
+        "moonshine/contracts": "4.x-dev",
+        "moonshine/core": "4.x-dev",
+        "moonshine/crud": "4.x-dev",
+        "moonshine/support": "4.x-dev",
+        "moonshine/ui": "4.x-dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "MoonShine\\Symfony\\": "src",
+            "App\\": "src/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

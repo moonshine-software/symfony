@@ -1,0 +1,52 @@
+/* Dropzone */
+.dropzone {
+  @apply relative w-full rounded-lg border-2 border-dashed p-3;
+  @apply border-gray-300; /* light theme */
+  @apply dark:border-dark-200; /* dark theme */
+
+  .dropzone-items {
+    @apply flex flex-wrap gap-2;
+  }
+
+  .dropzone-item {
+    @apply relative h-12 w-12 overflow-hidden rounded-md md:h-16 md:w-16;
+
+    &.dropzone-item-file {
+      @apply __default;
+      @apply flex h-auto w-full items-center gap-2 p-2;
+
+      .dropzone-remove {
+        @apply static;
+      }
+
+      a {
+        @apply inline;
+      }
+    }
+
+    & > img {
+      @apply h-full w-full object-cover;
+    }
+  }
+
+  .dropzone-file-icon {
+    @apply text-primary; /* light theme */
+    @apply dark:text-secondary; /* dark theme */
+
+    & > svg {
+      @apply h-5 w-5;
+    }
+  }
+
+  .dropzone-file-name {
+    @apply grow truncate text-2xs;
+  }
+
+  .dropzone-remove {
+    @apply absolute right-1 top-1 z-5 flex shrink-0 items-center justify-center rounded-full border border-error bg-error leading-none text-white hover:bg-white hover:text-error;
+
+    & > svg {
+      @apply h-3 w-3;
+    }
+  }
+}

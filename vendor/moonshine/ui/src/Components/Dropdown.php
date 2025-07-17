@@ -1,0 +1,129 @@
+<?php
+
+declare(strict_types=1);
+
+namespace MoonShine\UI\Components;
+
+use Closure;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\View\ComponentSlot;
+
+/**
+ * @method static static make(?string $title = null, Closure|string $toggler = '', Closure|Renderable|string $content = '', Closure|array $items = [], bool $searchable = false, Closure|string $searchPlaceholder = '', string $placement = 'bottom-start', Closure|string $footer = '')
+ */
+final class Dropdown extends MoonShineComponent
+{
+    protected string $view = 'moonshine::components.dropdown';
+
+    /**
+     * @var array<string, mixed>
+     */
+    protected array $togglerAttributes = [];
+
+    /**
+     * @param  (Closure(self):string)|string  $toggler
+     * @param  (Closure(self):string)|Renderable|string  $content
+     * @param  (Closure(self): string[])|string[]  $items
+     * @param  (Closure(self):string)|string  $searchPlaceholder
+     * @param  (Closure(self):string)|string  $footer
+     */
+    public function __construct(
+        public ?string $title = null,
+        protected Closure|string $toggler = '',
+        protected Closure|Renderable|string $content = '',
+        protected Closure|array $items = [],
+        protected bool $searchable = false,
+        protected Closure|string $searchPlaceholder = '',
+        public string $placement = 'bottom-start',
+        public Closure|string $footer = '',
+        public string $strategy = 'fixed',
+    ) {
+        parent::__construct();
+    }
+
+    public function toggler(Closure|string $toggler): self
+    {
+        $this->toggler = $toggler;
+
+        return $this;
+    }
+
+    /**
+     * @param  (Closure(self): string[])|string[]  $items
+     */
+    public function items(Closure|array $items): self
+    {
+        $this->items = $items;
+
+        return $this;
+    }
+
+    public function content(Closure|Renderable|string $content): self
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    public function placement(string $placement): self
+    {
+        $this->placement = $placement;
+
+        return $this;
+    }
+
+    public function searchable(Closure|bool|null $condition = null): static
+    {
+        $this->searchable = value($condition, $this) ?? true;
+
+        return $this;
+    }
+
+    public function searchPlaceholder(Closure|string $placeholder): static
+    {
+        $this->searchPlaceholder = $placeholder;
+
+        return $this;
+    }
+
+    /**
+     * @param  array<string, mixed>   $attributes
+     */
+    public function togglerAttributes(array $attributes): self
+    {
+        $this->togglerAttributes = $attributes;
+
+        return $this;
+    }
+
+    public function footer(Closure|string $value): self
+    {
+        $this->footer = $value;
+
+        return $this;
+    }
+
+
+    public function strategy(string $strategy): self
+    {
+        $this->strategy = $strategy;
+
+        return $this;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    protected function viewData(): array
+    {
+        return [
+            'toggler' => new ComponentSlot(value($this->toggler, $this), $this->togglerAttributes),
+            'slot' => new ComponentSlot(value($this->content, $this)),
+            'footer' => new ComponentSlot(value($this->footer, $this)),
+            'searchable' => $this->searchable,
+            'searchPlaceholder' => value($this->searchPlaceholder, $this),
+            'items' => value($this->items, $this),
+            'strategy' => $this->strategy,
+        ];
+    }
+}

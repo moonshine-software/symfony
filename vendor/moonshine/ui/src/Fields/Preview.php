@@ -1,0 +1,88 @@
+<?php
+
+declare(strict_types=1);
+
+namespace MoonShine\UI\Fields;
+
+use Closure;
+use Illuminate\Contracts\Support\Renderable;
+use MoonShine\UI\Components\Boolean;
+use MoonShine\UI\Components\Thumbnails;
+
+class Preview extends Field
+{
+    protected string $view = 'moonshine::fields.preview';
+
+    protected bool $isBoolean = false;
+
+    protected bool $isImage = false;
+
+    protected bool $hideTrue = false;
+
+    protected bool $hideFalse = false;
+
+    protected bool $hasOld = false;
+
+    public function boolean(
+        mixed $hideTrue = null,
+        mixed $hideFalse = null
+    ): static {
+        $this->hideTrue = value($hideTrue, $this) ?? false;
+        $this->hideFalse = value($hideFalse, $this) ?? false;
+
+        $this->isBoolean = true;
+
+        return $this;
+    }
+
+    public function image(): static
+    {
+        $this->isImage = true;
+
+        return $this;
+    }
+
+    protected function resolvePreview(): Renderable|string
+    {
+        $value = $this->toFormattedValue();
+
+        if ($this->isBoolean) {
+            $value = (bool) $value;
+
+            return match (true) {
+                $this->hideTrue && $value, $this->hideFalse && ! $value => '',
+                default => (string) Boolean::make($value)->render(),
+            };
+        }
+
+        if ($this->isImage) {
+            return Thumbnails::make(
+                $value
+            )->render();
+        }
+
+        return (string) $value;
+    }
+
+    protected function prepareBeforeRender(): void
+    {
+        parent::prepareBeforeRender();
+
+        $this->removeAttribute('name');
+    }
+
+    protected function resolveValue(): mixed
+    {
+        return $this->preview();
+    }
+
+    protected function resolveOnApply(): ?Closure
+    {
+        return static fn ($item) => $item;
+    }
+
+    public function isCanApply(): bool
+    {
+        return false;
+    }
+}
