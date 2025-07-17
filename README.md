@@ -39,6 +39,10 @@ Then require the package via Composer:
 composer require moonshine/symfony:4.x-dev
 ```
 
+```shell
+php bin/console moonshine:install
+```
+
 Make sure the local folder packages/moonshine-symfony contains the package source.
 
 ## Contributing
