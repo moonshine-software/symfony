@@ -1,0 +1,12 @@
+.idea/*
+!.idea/icon.svg
+vendor
+composer.lock
+.phpunit.result.cache
+.php-cs-fixer.cache
+app
+reports
+phpunit.xml.dist
+.env
+.phpunit.cache
+.DS_Store
