@@ -34,10 +34,10 @@ final class InstallCommand extends Command
             $this->projectDir . '/public/vendor/moonshine',
         );
 
-        $fs->mkdir($this->projectDir . '/src/App/MoonShine');
-        $fs->mkdir($this->projectDir . '/src/App/MoonShine/Resources');
-        $fs->mkdir($this->projectDir . '/src/App/MoonShine/Pages');
-        $fs->mkdir($this->projectDir . '/src/App/MoonShine/Layouts');
+        $fs->mkdir($this->projectDir . '/src/MoonShine');
+        $fs->mkdir($this->projectDir . '/src/MoonShine/Resources');
+        $fs->mkdir($this->projectDir . '/src/MoonShine/Pages');
+        $fs->mkdir($this->projectDir . '/src/MoonShine/Layouts');
 
         return Command::SUCCESS;
     }
